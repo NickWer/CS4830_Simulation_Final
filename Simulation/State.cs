@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace CS4830Final.Simulation
 {
+    /// <summary>
+    /// Represents the state of the simulation at a given moment.
+    /// </summary>
     public class State
     {
         public IEnumerable<Robot> robots;

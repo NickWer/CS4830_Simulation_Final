@@ -25,6 +25,12 @@ namespace CS4830Final.Simulation.Events
             return time;
         }
 
+        /// <summary>
+        /// This event handles the chaining logic where robots may have to wait for a charging station.
+        /// If a charger is available, claim it. If not, enqueue another attempt event after the next 
+        /// charging complete event.
+        /// </summary>
+        /// <param name="world">The state of the world right now.</param>
         public override void Run(State world)
         {
             if (station.chargingStationsInUse == station.maxChargingStations)

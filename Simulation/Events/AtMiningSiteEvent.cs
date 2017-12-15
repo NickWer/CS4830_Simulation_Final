@@ -25,6 +25,13 @@ namespace CS4830Final.Simulation.Events
             return time;
         }
 
+        /// <summary>
+        /// This event marks the battery power consumed on the trip to the site, and then
+        /// claims the site, and sets the robot's state to mining. It then computes when the 
+        /// robot will finish mining based on the robot's ore capacity, and schedules the
+        /// mining complete event
+        /// </summary>
+        /// <param name="world">The state of the world when the event is fired</param>
         public override void Run(State world)
         {
             if (site.activeMiner != null)

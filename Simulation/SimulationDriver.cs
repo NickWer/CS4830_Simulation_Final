@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace CS4830Final.Simulation
 {
+    /// <summary>
+    /// This class is responsible for actually running the simulation.
+    /// The stopCondition function is called after each event, allowing the consumer
+    /// to run until they meet the desired conditions to end the simulation - e.g. some time
+    /// or some amount of ore mined, etc.
+    /// </summary>
     public class SimulationDriver
     {
         public Func<State, Boolean> stopCondition;

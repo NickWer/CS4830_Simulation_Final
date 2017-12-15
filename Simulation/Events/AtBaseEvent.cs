@@ -25,6 +25,11 @@ namespace CS4830Final.Simulation.Events
             return time;
         }
 
+        /// <summary>
+        /// When this event is fired, the ore is unloaded, and attempting to charge begins as soon as 
+        /// unloading is complete
+        /// </summary>
+        /// <param name="world">The state of the world when the event is fired</param>
         public override void Run(State world)
         {
             station.oreMined += robot.oreCapacity;

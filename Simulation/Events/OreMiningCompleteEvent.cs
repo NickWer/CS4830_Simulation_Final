@@ -25,6 +25,12 @@ namespace CS4830Final.Simulation.Events
             return time;
         }
 
+        /// <summary>
+        /// This event marks the robot as in transit, clears the active miner from the site and marks
+        /// the site available, and then adds an event reflecting how long it will take the robot to
+        /// get back to the base camp
+        /// </summary>
+        /// <param name="world">The current state of the world</param>
         public override void Run(State world)
         {
             robot.state = RobotState.inTransit;

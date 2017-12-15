@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CS4830Final
 {
+    /// <summary>
+    /// Thread safe random class that can generate uniform or gaussian random values
+    /// </summary>
     //Modified from https://blogs.msdn.microsoft.com/pfxteam/2009/02/19/getting-random-numbers-in-a-thread-safe-way/
     public class ThreadSafeRandom
     {

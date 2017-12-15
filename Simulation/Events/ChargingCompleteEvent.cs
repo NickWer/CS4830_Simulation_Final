@@ -23,6 +23,12 @@ namespace CS4830Final.Simulation.Events
             return time;
         }
 
+        /// <summary>
+        /// When this event is completed, it marks the robot as in transit, sending it
+        /// to the nearest available site. Ideally this should chain - a limitation of the
+        /// current implementation is that there needs to be at least one site per robot
+        /// </summary>
+        /// <param name="world">State of the simulation at the time the event is fired</param>
         public override void Run(State world)
         {
             world.baseStation.chargingStationsInUse -= 1;

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace CS4830Final.Simulation.RandomGenerators
 {
+    /// <summary>
+    /// Uses rejection sampling to generate pseudo-random battery qualities based on
+    /// a dataset provided in batteryQualityData.txt with the associated frequencies in batteryQualityFrequency.txt
+    /// </summary>
     class BatteryQualityGenerator : IRandomGenerator
     {
         IEnumerable<int> Frequencies;
@@ -14,6 +18,9 @@ namespace CS4830Final.Simulation.RandomGenerators
         int offset = 90;
         float max;
 
+        /// <summary>
+        /// Computes the PMF
+        /// </summary>
         public BatteryQualityGenerator()
         {
             Frequencies = File.ReadAllLines("batteryQualityFreqency.txt").Select(s => int.Parse(s));
@@ -23,6 +30,12 @@ namespace CS4830Final.Simulation.RandomGenerators
             max = PMF.Max();
         }
 
+
+        /// <summary>
+        /// Performs the actual rejection sampling
+        /// </summary>
+        /// <returns>Random numbers with frequencies relative to the distribution of those found
+        /// in the data file.</returns>
         public int GetNext()
         {
             while (true)
