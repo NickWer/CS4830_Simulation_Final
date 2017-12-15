@@ -55,8 +55,8 @@
     <Compile Include="Simulation\Events\AttemptChargingEnqueueEvent.cs" />
     <Compile Include="Simulation\Events\ChargingCompleteEvent.cs" />
     <Compile Include="Simulation\Events\OreMiningCompleteEvent.cs" />
+    <Compile Include="Simulation\RandomGenerators\BatteryQualityGenerator.cs" />
     <Compile Include="Simulation\RandomGenerators\ConstantGenerator.cs" />
-    <Compile Include="Simulation\RandomGenerators\DrillTimeGenerator.cs" />
     <Compile Include="Simulation\RandomGenerators\RandomGenerator.cs" />
     <Compile Include="Simulation\SimulationDriver.cs" />
     <Compile Include="Simulation\State.cs" />
@@ -67,6 +67,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="batteryQualityData.txt" />
+    <Content Include="batteryQualityFreqency.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

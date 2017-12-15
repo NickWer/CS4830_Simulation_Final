@@ -28,8 +28,11 @@ namespace CS4830Final.Simulation.Events
         public override void Run(State world)
         {
             station.oreMined += robot.oreCapacity;
+            robot.batteryPowerConsumed += (int)(robot.GetLoadFactor() * robot.distanceFromBase);
             robot.distanceFromBase = 0;
-            AttemptChargingEnqueueEvent e = new AttemptChargingEnqueueEvent(robot, station, world.time + 1);
+
+            //Black box model: it takes time to unload, sometimes a bit more or a bit less
+            AttemptChargingEnqueueEvent e = new AttemptChargingEnqueueEvent(robot, station, world.time + robot.GetUnloadTime());
             world.eventQueue.Enqueue(e, world.time + 1);
         }
     }

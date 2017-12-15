@@ -29,6 +29,8 @@ namespace CS4830Final.Simulation.Events
         {
             if (site.activeMiner != null)
                 throw new InvalidOperationException("There is already an active miner at that site");
+
+            robot.batteryPowerConsumed += site.distance;
             site.activeMiner = robot;
             robot.state = RobotState.mining;
             robot.distanceFromBase = site.distance;

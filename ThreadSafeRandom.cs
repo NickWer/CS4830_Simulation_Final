@@ -13,7 +13,7 @@ namespace CS4830Final
         [ThreadStatic]
         private static Random _local;
 
-        private static Random getRandomInstance()
+        public static Random getRandomInstance()
         {
             Random inst = _local;
             if (inst == null)

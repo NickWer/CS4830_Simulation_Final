@@ -28,7 +28,7 @@ namespace CS4830Final.Simulation.Events
             world.baseStation.chargingStationsInUse -= 1;
             MiningSite site = world.sites.First(s => s.available);
             robot.state = RobotState.inTransit;
-            robot.batteryCurrent = robot.batteryMax;
+            robot.batteryPowerConsumed = 0;
             site.available = false;
 
             float arrivalTime = world.time + robot.getArrivalTime(site.distance);
