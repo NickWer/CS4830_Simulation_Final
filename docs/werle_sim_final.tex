@@ -1,0 +1,54 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{minted}
+\usepackage{multicol}
+\usepackage{verbatim}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+
+\renewcommand\Affilfont{\itshape\small}
+\newcommand{\srcFile}[2]{
+    \subsection{#1}
+    #2
+    \inputminted[linenos,breaklines]{csharp}{../#1}
+    \newpage
+}
+
+\newcommand{\img}[2]{
+	\begin{figure}[h!]
+		\includegraphics{img/#1}
+		\centering
+		\caption{#2}
+	\end{figure}
+}
+
+\title{CS4830 System Simulation Final Project}
+\author{Nick Werle}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+The year is 2075, and robots mining on mars is now a thing.
+MineCo, the biggest player in the Mars based robot mining game, has decided that to answer business questions, they should be using simulations rather than their current methodology of just guessing.
+This document will enumerate the simulation methodology, some of the models used in the simulation, and then 3 questions and the answers that the simulation produced.
+
+\section{Discussion}
+\subsection{Simulation Background}
+This simulation has a few basic components.
+First, there is one mining base.
+The mining base has chargers that can be used by any robot, but no more than any one robot.
+Next, there are mining sites, which can only be mined by one robot at a time.
+Finally, there are robots, that do the mining.
+Robots have a speed that is used to determine how long it takes to get to the mining site or back to the base.
+Robots have an unloading time, and they can have different digging implements that mine at different speeds.
+Additionally, robot batteries have variable qualities, which affect how well they charge, and the power consumed is a function of amount of ore being carried.
+
+\subsection{Simulation Methodology}
+The simulation follows a simple structure.
+\end{document}
