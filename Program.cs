@@ -178,7 +178,7 @@ namespace CS4830Final
         private static void GenerateNormals()
         {
             List<double> data = new List<double>();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 20000; i++)
             {
                 data.Add(ThreadSafeRandom.NextNormal(0, 1));
             }
