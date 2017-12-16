@@ -63,7 +63,7 @@ namespace CS4830Final
         }
 
         /// <summary>
-        /// Scenario 2 is like scenario 1, but with very slow, high capacity robots
+        /// Scenario 2 is like scenario 1, but with very slow, fast drilling robots
         /// </summary>
         private static void scenario2()
         {
@@ -77,13 +77,14 @@ namespace CS4830Final
                         return state.time >= 3600 * 24 * 365; //One year
                     }
                 };
-                var robots = new List<Robot>
+            var robots = new List<Robot>
                  {
-                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500),
-                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500),
-                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500),
-                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500)
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext()),
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext()),
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext()),
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext())
                  };
+                robots.ForEach(r => { r.AvgMiningTime = 4; r.StdDevMiningTime = 1; });
                 var sites = new List<MiningSite>
                  {
                     new MiningSite(100),
@@ -174,9 +175,25 @@ namespace CS4830Final
             File.WriteAllLines("batteryQualityData.txt", batteries.Select(b => b.ToString()));
         }
 
-        private static void GenerateChargeData()
+        private static void GenerateNormals()
         {
-            List<int> batteries = new List<int>();
+            List<double> data = new List<double>();
+            for (int i = 0; i < 1000; i++)
+            {
+                data.Add(ThreadSafeRandom.NextNormal(0, 1));
+            }
+            File.WriteAllLines("normalData.txt", data.Select(b => b.ToString()));
+        }
+
+        private static void GeneratePMFData()
+        {
+            List<int> data = new List<int>();
+            BatteryQualityGenerator g = new BatteryQualityGenerator();
+            for (int i = 0; i < 1000; i++)
+            {
+                data.Add(g.GetNext());
+            }
+            File.WriteAllLines("pmfData.txt", data.Select(b => b.ToString()));
         }
         static void Main(string[] args)
         {
@@ -185,6 +202,7 @@ namespace CS4830Final
                 case 1: scenario1(); break;
                 case 2: scenario2(); break;
                 case 3: scenario3(); break;
+                case 4: GenerateBatteryData(); GeneratePMFData(); GenerateNormals(); break;
                 default: Console.WriteLine("Ya goofed"); break;
             }
         }

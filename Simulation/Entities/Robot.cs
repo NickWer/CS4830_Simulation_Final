@@ -31,7 +31,7 @@ namespace CS4830Final.Simulation.Entities
 
         public Robot(int speed, int batteryMax, int oreCap = 500)
         {
-            this.speed = speed;
+            this.speed = speed == 0 ? 1 : speed;
             this.batteryQuality = batteryMax;
             this.oreCapacity = oreCap;
         }
