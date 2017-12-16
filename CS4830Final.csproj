@@ -56,7 +56,6 @@
     <Compile Include="Simulation\Events\ChargingCompleteEvent.cs" />
     <Compile Include="Simulation\Events\OreMiningCompleteEvent.cs" />
     <Compile Include="Simulation\RandomGenerators\BatteryQualityGenerator.cs" />
-    <Compile Include="Simulation\RandomGenerators\ConstantGenerator.cs" />
     <Compile Include="Simulation\RandomGenerators\RandomGenerator.cs" />
     <Compile Include="Simulation\SimulationDriver.cs" />
     <Compile Include="Simulation\State.cs" />

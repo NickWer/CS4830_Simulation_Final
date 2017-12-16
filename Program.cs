@@ -11,10 +11,15 @@ using System.Threading.Tasks;
 
 namespace CS4830Final
 {
-    class Program {     
+    class Program {
+        const int numRuns = 10000;
+
+        /// <summary>
+        /// Standard scenario. 15ft/s robots, 500 ore cap, 4 chargers
+        /// </summary>
         private static void scenario1()
         {
-            Parallel.For(0, 1000, (i) =>
+            Parallel.For(0, numRuns, (i) =>
             {
                 BatteryQualityGenerator g = new BatteryQualityGenerator();
                 SimulationDriver sim = new SimulationDriver()
@@ -57,6 +62,103 @@ namespace CS4830Final
             });
         }
 
+        /// <summary>
+        /// Scenario 2 is like scenario 1, but with very slow, high capacity robots
+        /// </summary>
+        private static void scenario2()
+        {
+            Parallel.For(0, numRuns, (i) =>
+            {
+                BatteryQualityGenerator g = new BatteryQualityGenerator();
+                SimulationDriver sim = new SimulationDriver()
+                {
+                    stopCondition = (state) =>
+                    {
+                        return state.time >= 3600 * 24 * 365; //One year
+                    }
+                };
+                var robots = new List<Robot>
+                 {
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500),
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500),
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500),
+                    new Robot(ThreadSafeRandom.NextNormalInt(5, 1), g.GetNext(), 1500)
+                 };
+                var sites = new List<MiningSite>
+                 {
+                    new MiningSite(100),
+                    new MiningSite(110),
+                    new MiningSite(80),
+                    new MiningSite(100)
+                 };
+                State starting = new State()
+                {
+                    baseStation = new BaseStation(4),
+                    robots = robots,
+                    sites = sites
+                };
+
+                sim.world = starting;
+
+                robots.ForEach(r =>
+                {
+                    sim.world.eventQueue.Enqueue(new AttemptChargingEnqueueEvent(r, starting.baseStation, 0), 0);
+                });
+
+                sim.Run();
+                Console.WriteLine(starting.baseStation.oreMined);
+            });
+        }
+
+
+        /// <summary>
+        /// Scenario 3 is like scenario 1, but with only 2 chargers
+        /// </summary>
+        private static void scenario3()
+        {
+            Parallel.For(0, numRuns, (i) =>
+            {
+                BatteryQualityGenerator g = new BatteryQualityGenerator();
+                SimulationDriver sim = new SimulationDriver()
+                {
+                    stopCondition = (state) =>
+                    {
+                        return state.time >= 3600 * 24 * 365; //One year
+                    }
+                };
+                var robots = new List<Robot>
+                 {
+                    new Robot(ThreadSafeRandom.NextNormalInt(15, 1), g.GetNext()),
+                    new Robot(ThreadSafeRandom.NextNormalInt(15, 1), g.GetNext()),
+                    new Robot(ThreadSafeRandom.NextNormalInt(15, 1), g.GetNext()),
+                    new Robot(ThreadSafeRandom.NextNormalInt(15, 1), g.GetNext())
+                 };
+                var sites = new List<MiningSite>
+                 {
+                    new MiningSite(100),
+                    new MiningSite(110),
+                    new MiningSite(80),
+                    new MiningSite(100)
+                 };
+                State starting = new State()
+                {
+                    baseStation = new BaseStation(2),
+                    robots = robots,
+                    sites = sites
+                };
+
+                sim.world = starting;
+
+                robots.ForEach(r =>
+                {
+                    sim.world.eventQueue.Enqueue(new AttemptChargingEnqueueEvent(r, starting.baseStation, 0), 0);
+                });
+
+                sim.Run();
+                Console.WriteLine(starting.baseStation.oreMined);
+            });
+        }
+
         private static void GenerateBatteryData()
         {
             List<int> batteries = new List<int>();
@@ -78,7 +180,13 @@ namespace CS4830Final
         }
         static void Main(string[] args)
         {
-            scenario1();
+            switch (int.Parse(args[0]))
+            {
+                case 1: scenario1(); break;
+                case 2: scenario2(); break;
+                case 3: scenario3(); break;
+                default: Console.WriteLine("Ya goofed"); break;
+            }
         }
     }
 }
